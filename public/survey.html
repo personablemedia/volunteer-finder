@@ -202,10 +202,10 @@
 		</div>
 	</footer>
 
-	<!-- Modal Dialog Displaying Closest Friend Match -->
+	<!-- Modal Dialog Displaying Closest Volunteer Type Match -->
 	<div id="modal1" class="modal">
 		<div class="modal-content">
-			<h4>Closest Friend Match</h4>
+			<h4>Closest Volunteer Match</h4>
 			<div class="divider"></div>
 			<h5 id="userMatch"></h5>
 			<img id="userMatchImage" class="materialboxed" width="650" src="">
@@ -220,20 +220,17 @@
 			$('select').material_select();
 
 			$('.modal').modal({
-				dismissible: false, // Modal can be dismissed by clicking outside of the modal
-				opacity: .5, // Opacity of modal background
-				inDuration: 300, // Transition in duration
-				outDuration: 200, // Transition out duration
-				startingTop: '4%', // Starting top style attribute
-				endingTop: '10%' // Ending top style attribute
+				dismissible: false,
+				opacity: .5, 
+				inDuration: 300, 
+				outDuration: 200, 
+				startingTop: '4%', 
+				endingTop: '10%' 
 			});
 		});
 
-		// Activate submit button
 		$('#submitButton').on('click', function(event) {
 			event.preventDefault();
-
-			// Gather user inputs
 			var userInput = {
 				name: $('#userName').val().trim(),
 				photo: $('#userPhoto').val().trim(),
@@ -250,19 +247,11 @@
 					$('#question10').val().trim()
 				]
 			};
-
 			// console.log('userInput = ' + JSON.stringify(userInput));
-
-			// Add user inputs to friends list
 			$.post('/api/friends', userInput)
       		.done(function(data) {
-      			// console.log('response = ' + JSON.stringify(data));
-
-      			// Set the name and image values of friend match
       			$('#userMatch').html(data.matchName);
 		    	$("#userMatchImage").attr("src", data.matchImage);
-
-		    	// Pop open the modal dialog
       			$('#modal1').modal('open');
       		});
 		});
